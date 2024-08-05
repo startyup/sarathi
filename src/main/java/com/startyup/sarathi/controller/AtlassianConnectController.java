@@ -12,7 +12,7 @@ public class AtlassianConnectController {
 
     @GetMapping("/atlassian-connect.json")
     public String getDescriptor() {
-        System.out.println("GET /atlassian-connect.json")
+        System.out.println("GET /atlassian-connect.json");
         return "{\n" +
                 "  \"key\": \"com.startyup.sarathi\",\n" +
                 "  \"name\": \"Sarathi\",\n" +
