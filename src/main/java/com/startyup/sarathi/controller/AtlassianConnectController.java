@@ -1,6 +1,9 @@
 package com.startyup.sarathi.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,7 +12,6 @@ public class AtlassianConnectController {
 
     @GetMapping("/atlassian-connect.json")
     public String getDescriptor() {
-        System.out.println("GET /atlassian-connect.json");
         return "{\n" +
                 "  \"key\": \"com.startyup.sarathi\",\n" +
                 "  \"name\": \"Sarathi\",\n" +
@@ -42,5 +44,17 @@ public class AtlassianConnectController {
     @GetMapping("/hello-world")
     public ModelAndView helloWorld() {
         return new ModelAndView("hello-world");
+    }
+
+    @PostMapping("/installed")
+    public ResponseEntity<String> handleInstalled(@RequestBody String body) {
+        // Handle the installed lifecycle event
+        return ResponseEntity.ok("App installed");
+    }
+
+    @PostMapping("/uninstalled")
+    public ResponseEntity<String> handleUninstalled(@RequestBody String body) {
+        // Handle the uninstalled lifecycle event
+        return ResponseEntity.ok("App uninstalled");
     }
 }
