@@ -1,5 +1,5 @@
 # For Java 11, try this
-FROM openjdk:17-jre-slim-buster
+FROM openjdk:17-jdk-slim
 
 # Refer to Maven build -> finalName
 ARG JAR_FILE=target/sarathi-0.0.1-SNAPSHOT.jar
