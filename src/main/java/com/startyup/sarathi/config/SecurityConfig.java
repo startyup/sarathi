@@ -19,8 +19,8 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/atlassian-connect.json").permitAll()  // Permit all access to /atlassian-connect.json
-                    .anyRequest().authenticated()  // Require authentication for other requests
+                    //.requestMatchers("/atlassian-connect.json").permitAll()  // Permit all access to /atlassian-connect.json
+                    .anyRequest().permitAll()  // Require authentication for other requests
             )
             .csrf(csrf -> csrf.disable());  // Disable CSRF protection
 
