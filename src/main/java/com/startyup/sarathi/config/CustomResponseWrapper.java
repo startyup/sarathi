@@ -1,14 +1,13 @@
 package com.startyup.sarathi.config;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 public class CustomResponseWrapper extends HttpServletResponseWrapper {
 
@@ -46,5 +45,11 @@ public class CustomResponseWrapper extends HttpServletResponseWrapper {
     public String getContent() {
         writer.flush();
         return outputStream.toString(StandardCharsets.UTF_8);
+    }
+
+    public void copyBodyToResponse() throws IOException {
+        ServletOutputStream responseOutputStream = getResponse().getOutputStream();
+        responseOutputStream.write(outputStream.toByteArray());
+        responseOutputStream.flush();
     }
 }

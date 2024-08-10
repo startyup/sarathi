@@ -1,10 +1,11 @@
 package com.startyup.sarathi.config;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Component
 public class LoggingInterceptor implements HandlerInterceptor {
@@ -26,10 +27,12 @@ public class LoggingInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws IOException {
         if (response instanceof CustomResponseWrapper) {
             String responseContent = ((CustomResponseWrapper) response).getContent();
             System.out.println("Response Content: " + responseContent);
         }
     }
 }
+
+

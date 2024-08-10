@@ -1,15 +1,15 @@
 package com.startyup.sarathi.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class LoggingFilter extends HttpFilter implements WebMvcConfigurer {
         // Proceed with the filter chain using the wrapped response
         chain.doFilter(request, responseWrapper);
 
-        // Pass control to the interceptor's afterCompletion method
-        loggingInterceptor.afterCompletion(request, responseWrapper, null, null);
+        // Ensure the captured content is written back to the actual response
+        responseWrapper.copyBodyToResponse();
     }
 }
