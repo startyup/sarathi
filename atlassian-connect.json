@@ -1,0 +1,27 @@
+{
+  "key": "com.startyup.sarathi",
+  "name": "Sarathi",
+  "baseUrl": "https://app.sarathi.dev",
+  "authentication": {
+    "type": "jwt"
+  },
+  "lifecycle": {
+    "installed": "/installed",
+    "uninstalled": "/uninstalled"
+  },
+  "scopes": [
+    "READ",
+    "WRITE"
+  ],
+  "modules": {
+    "generalPages": [
+      {
+        "url": "/hello-world",
+        "name": {
+          "value": "Hello World Page"
+        },
+        "key": "hello-world-page"
+      }
+    ]
+  }
+}

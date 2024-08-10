@@ -21,11 +21,9 @@ pipeline {
             steps {
                 sh 'echo $GIT_BRANCH'
                 sh 'echo $REPO'
-                sh 'sed "s/dev/$GIT_BRANCH/g" src/main/resources/application.properties > application.properties'
-                sh 'mv application.properties src/main/resources/application.properties'
-		sh 'export MVN_HOME="/opt/maven"'
-		sh 'export PATH="/opt/maven/bin:$PATH"'
-                sh "/opt/maven/bin/mvn clean install"
+                sh 'cp src/env/${GIT_BRANCH}.env .env'
+                sh 'sed "s/uat/$GIT_BRANCH/g" serverless.yml > temp.yml'
+                sh 'mv temp.yml serverless.yml'
                 sh "docker build -t ${PROJECT}:${GIT_BRANCH} ."
             }
         }
@@ -43,7 +41,6 @@ pipeline {
         stage('Pull from ECR') {
             when { anyOf {
                 expression { env.GIT_BRANCH == env.BRANCH_ONE }
-                expression { env.GIT_BRANCH == env.BRANCH_THREE }
             } }
             steps {
                 sh 'echo \$(${ECR_LOGIN}) > ${GIT_BRANCH}.sh'
@@ -53,7 +50,6 @@ pipeline {
         stage('Run ECR Container') {
             when { anyOf {
                 expression { env.GIT_BRANCH == env.BRANCH_ONE }
-                expression { env.GIT_BRANCH == env.BRANCH_THREE }
             } }
             steps {
                 sh 'echo docker rm -f $PROJECT-${GIT_BRANCH} >> ${GIT_BRANCH}.sh'
@@ -64,6 +60,7 @@ pipeline {
         stage('Run Container locally') {
             when { anyOf {
                 expression { env.GIT_BRANCH == env.BRANCH_TWO }
+                expression { env.GIT_BRANCH == env.BRANCH_THREE }
             } }
             steps {
                 sh 'docker rm -f $PROJECT-${GIT_BRANCH} >> ${GIT_BRANCH}.sh'

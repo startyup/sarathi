@@ -1,15 +1,18 @@
-# For Java 11, try this
-FROM openjdk:17-jdk-slim
+# pull official base image
+FROM node:16.16.0-alpine AS build
 
-# Refer to Maven build -> finalName
-ARG JAR_FILE=target/sarathi-0.0.1-SNAPSHOT.jar
+# set working directory
+WORKDIR /app
 
-# cd /opt/app
-WORKDIR /opt/app
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-# cp target/spring-boot-web.jar /opt/app/app.jar
-COPY ${JAR_FILE} app.jar
+# install app dependencies
+COPY package.json ./
+RUN npm install --legacy-peer-deps
 
-env java_opts="-xx:permsize=4096m -xx:maxpermsize=4096m"
-# java -jar /opt/app/app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+# add app
+COPY . ./
+
+
+CMD ["npm", "start"]
