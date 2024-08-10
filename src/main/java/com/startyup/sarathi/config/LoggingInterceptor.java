@@ -12,7 +12,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
     
-        String connectionHeader = request.getHeader("Connection");
+        String connectionHeader = request.getHeader("connection");
         if ("Keep-Alive".equalsIgnoreCase(connectionHeader) && request.getContentLength() == 0) {
             return true; // Skip logging for Keep-Alive requests
         }
