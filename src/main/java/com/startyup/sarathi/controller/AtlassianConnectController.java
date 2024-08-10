@@ -16,7 +16,7 @@ public class AtlassianConnectController {
         return "{\n" +
                 "  \"key\": \"com.startyup.sarathi\",\n" +
                 "  \"name\": \"Sarathi\",\n" +
-                "  \"baseUrl\": \"https://sarathi.dev\",\n" +
+                "  \"baseUrl\": \"https://app.sarathi.dev\",\n" +
                 "  \"authentication\": {\n" +
                 "    \"type\": \"jwt\"\n" +
                 "  },\n" +
