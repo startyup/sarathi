@@ -21,9 +21,6 @@ pipeline {
             steps {
                 sh 'echo $GIT_BRANCH'
                 sh 'echo $REPO'
-                sh 'cp src/env/${GIT_BRANCH}.env .env'
-                sh 'sed "s/uat/$GIT_BRANCH/g" serverless.yml > temp.yml'
-                sh 'mv temp.yml serverless.yml'
                 sh "docker build -t ${PROJECT}:${GIT_BRANCH} ."
             }
         }
