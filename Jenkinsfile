@@ -61,7 +61,7 @@ pipeline {
             } }
             steps {
                 sh 'docker rm -f $PROJECT-${GIT_BRANCH} >> ${GIT_BRANCH}.sh'
-                sh 'docker run -e TZ=$TIMEZONE --net=host -d --name $PROJECT-${GIT_BRANCH} ${PROJECT}:${GIT_BRANCH}'
+                sh 'docker run -e TZ=$TIMEZONE -p 3001:3000 -d --name $PROJECT-${GIT_BRANCH} ${PROJECT}:${GIT_BRANCH}'
             }
         }
     }
